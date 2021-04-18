@@ -1,0 +1,30 @@
+
+
+.left-part {
+    display: flex;
+    flex: 1;
+    align-items: center;
+}
+
+.right-part {
+    display: flex;
+    width:150px;
+    align-items: center;
+    justify-content: flex-end;
+
+}
+.MuiSelect-selectMenu-115{
+
+}
+.purple-backgound{
+    background-color: #3f51b5;
+
+}
+.purple{
+    color: #3f51b5;
+}
+.MuiButton-outlinedPrimary-131 {
+    color: #fafafb!important;
+    border: 1px solid #552d5f!important;
+    background-color: #552d5f!important;
+}

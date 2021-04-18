@@ -1,0 +1,27 @@
+.address-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 11px;
+    width: fit-content;
+}
+.address-inputs{
+    width: 15rem;
+    padding: 8px;
+    margin: 10px 0px;
+    border-color: rgb(63, 81, 181);
+    border-radius: 7px;
+    font-family: inherit;
+}
+.address-container-left{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.address-container-right{
+    display: flex;
+    flex-direction: column;
+    margin-left: 25px;
+}
+
+
