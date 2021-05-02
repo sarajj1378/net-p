@@ -16,7 +16,7 @@ class ConnectedLogin extends Component {
     redirectToReferrer: false,
   };
   render() {
-    const { from } = this.props.location.state || { from: { pathname: "/" } };
+    const  from  = this.props?.location?.state?.from || { pathname: "/" };
 
     // If user was authenticated, redirect her to where she came from.
     if (this.state.redirectToReferrer === true) {
