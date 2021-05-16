@@ -8,3 +8,4 @@ export const SET_LOGGED_IN_USER = "SET_LOGGED_IN_USER";
 export const LOGOUT = "LOGOUT";
 //add COMENT constant type
 export const ADD_COMMENT = "ADD_COMMENT";
+export const WRONG_CRED = "WRONG_CRED";

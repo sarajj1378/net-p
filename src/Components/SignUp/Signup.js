@@ -9,7 +9,7 @@ import Avatar from "@material-ui/core/Avatar";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import "./Login.css";
 
-class ConnectedLogin extends Component {
+class ConnectedSignup extends Component {
   state = {
     userName: "",
     pass: "",
@@ -68,7 +68,23 @@ class ConnectedLogin extends Component {
           <TextField
             value={this.state.pass}
             type="password"
+            placeholder="شماره تلفن"
+            onChange={(e) => {
+              this.setState({ pass: e.target.value });
+            }}
+          />{" "}
+          <TextField
+            value={this.state.pass}
+            type="password"
             placeholder="کلمه عبور"
+            onChange={(e) => {
+              this.setState({ pass: e.target.value });
+            }}
+          />{" "}
+          <TextField
+            value={this.state.pass}
+            type="password"
+            placeholder="تکرار کلمه عبور"
             onChange={(e) => {
               this.setState({ pass: e.target.value });
             }}
