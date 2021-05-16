@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withRouter, Redirect } from "react-router-dom";
+import { withRouter, Redirect, NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import Auth from "../../Auth";
 import TextField from "@material-ui/core/TextField";
@@ -99,8 +99,9 @@ class ConnectedLogin extends Component {
             ورود{" "}
           </Button>{" "}
           {this.props.wrongCred && (
-            <div style={{ color: "red" }}> خطا در رمز یا کلمه عبور </div>
+            <div style={{ color: "red" }}> {this.props.wrongCredMsg} </div>
           )}{" "}
+          <NavLink to="/signup">ثبت نام کنید</NavLink>
         </div>{" "}
       </div>
     );
@@ -108,7 +109,7 @@ class ConnectedLogin extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { wrongCred : state.wrongCredStatus };
+  return { wrongCred : state.wrongCredStatus, wrongCredMsg: state.wrongCredMsg };
 };
 
 const Login = withRouter(connect(mapStateToProps)(ConnectedLogin));

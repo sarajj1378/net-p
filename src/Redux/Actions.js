@@ -41,9 +41,9 @@ export const addComment = (id, comment) => {
     };
 };
 
-export const wrongCred = (status) => {
+export const wrongCred = (status, message) => {
     return {
         type: CONSTANTS.WRONG_CRED,
-        payload: status,
+        payload: {status, message},
     };
 }

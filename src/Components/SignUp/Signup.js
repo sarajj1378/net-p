@@ -1,18 +1,21 @@
 import React, { Component } from "react";
-import { withRouter, Redirect } from "react-router-dom";
+import { withRouter, Redirect, NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import Auth from "../../Auth";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import { setLoggedInUser } from "../../Redux/Actions";
+import { setLoggedInUser, wrongCred } from "../../Redux/Actions";
 import Avatar from "@material-ui/core/Avatar";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import "./Login.css";
+import store from "../../Redux/Store";
+// import "./Login.css";
 
 class ConnectedSignup extends Component {
   state = {
     userName: "",
     pass: "",
+    passReenter: "",
+    phoneNumber: "",
     redirectToReferrer: false,
   };
   render() {
@@ -60,33 +63,33 @@ class ConnectedSignup extends Component {
           </div>{" "}
           <TextField
             value={this.state.userName}
-            placeholder="رمز کاربری"
-            onChange={(e) => {
-              this.setState({ userName: e.target.value });
+            placeholder="نام کاربری"
+            onChange={e => {
+              this.setState({ userName: e.target.value })
             }}
           />{" "}
           <TextField
-            value={this.state.pass}
-            type="password"
+            value={this.state.phoneNumber}
+            type="phoneNumber"
             placeholder="شماره تلفن"
-            onChange={(e) => {
-              this.setState({ pass: e.target.value });
+            onChange={e => {
+              this.setState({ phoneNumber: e.target.value })
             }}
           />{" "}
           <TextField
             value={this.state.pass}
             type="password"
             placeholder="کلمه عبور"
-            onChange={(e) => {
-              this.setState({ pass: e.target.value });
+            onChange={e => {
+              this.setState({ pass: e.target.value })
             }}
           />{" "}
           <TextField
-            value={this.state.pass}
+            value={this.state.passReenter}
             type="password"
             placeholder="تکرار کلمه عبور"
-            onChange={(e) => {
-              this.setState({ pass: e.target.value });
+            onChange={e => {
+              this.setState({ passReenter: e.target.value })
             }}
           />{" "}
           <Button
@@ -94,39 +97,40 @@ class ConnectedSignup extends Component {
             variant="outlined"
             color="primary"
             onClick={() => {
-              // Simulate authentication call
-              Auth.authenticate(
-                this.state.userName,
-                this.state.pass,
-                (user) => {
+              let err = false
+              if (this.state.pass !== this.state.passReenter) {
+                err = true
+                setTimeout(() => store.dispatch(wrongCred(true, "رمز عبور با تکرارش هم خوانی ندارد")), 200)
+                setTimeout(() => store.dispatch(wrongCred(false)), 20000)
+              }
+              if (!err)
+                Auth.signUp(this.state.userName, this.state.pass, user => {
                   if (!user) {
-                    this.setState({ wrongCred: true });
-                    return;
+                    this.setState({ wrongCred: true })
+                    return
                   }
 
-                  this.props.dispatch(setLoggedInUser({ name: user.name }));
+                  this.props.dispatch(setLoggedInUser({ name: user.name }))
                   this.setState(() => ({
                     redirectToReferrer: true,
-                  }));
-                }
-              );
+                  }))
+                })
             }}
           >
             ورود{" "}
           </Button>{" "}
-          {this.props.wrongCred && (
-            <div style={{ color: "red" }}> خطا در رمز یا کلمه عبور </div>
-          )}{" "}
+          {this.props.wrongCred && <div style={{ color: "red" }}> {this.props.wrongCredMsg} </div>}{" "}
+          <NavLink to="/login">وارد شوید</NavLink>
         </div>{" "}
       </div>
-    );
+    )
   }
 }
 
 const mapStateToProps = (state) => {
-  return { wrongCred : state.wrongCredStatus };
+  return { wrongCred: state.wrongCredStatus, wrongCredMsg: state.wrongCredMsg }
 };
 
-const Login = withRouter(connect(mapStateToProps)(ConnectedLogin));
+const Signup = withRouter(connect(mapStateToProps)(ConnectedSignup))
 
-export default Login;
+export default Signup;

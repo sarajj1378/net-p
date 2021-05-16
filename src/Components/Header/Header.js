@@ -1,31 +1,31 @@
-import React, { Component } from "react";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import "./Header.css";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import Badge from "@material-ui/core/Badge";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
-import { showCartDlg, toggleMenu, logout } from "../../Redux/Actions";
-import cartImage from "../../Images/logo2.png";
-import Auth from "../../Auth";
-import { categories } from "../../Data";
-import Person from "@material-ui/icons/PersonOutline";
-import Avatar from "@material-ui/core/Avatar";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import Select from "@material-ui/core/Select";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
+import React, { Component } from "react"
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart"
+import "./Header.css"
+import IconButton from "@material-ui/core/IconButton"
+import MenuIcon from "@material-ui/icons/Menu"
+import Badge from "@material-ui/core/Badge"
+import TextField from "@material-ui/core/TextField"
+import Button from "@material-ui/core/Button"
+import { withRouter } from "react-router-dom"
+import { connect } from "react-redux"
+import { showCartDlg, toggleMenu, logout } from "../../Redux/Actions"
+import cartImage from "../../Images/logo2.png"
+import Auth from "../../Auth"
+import { categories } from "../../Data"
+import Person from "@material-ui/icons/PersonOutline"
+import Avatar from "@material-ui/core/Avatar"
+import Menu from "@material-ui/core/Menu"
+import MenuItem from "@material-ui/core/MenuItem"
+import Select from "@material-ui/core/Select"
+import AppBar from "@material-ui/core/AppBar"
+import Toolbar from "@material-ui/core/Toolbar"
 
 const mapStateToProps = state => {
   return {
     nrOfItemsInCard: state.cartItems.length,
-    loggedInUser: state.loggedInUser
-  };
-};
+    loggedInUser: state.loggedInUser,
+  }
+}
 
 // Option items for product categories.
 const categoryOptions = categories.map(x => {
@@ -33,30 +33,29 @@ const categoryOptions = categories.map(x => {
     <MenuItem key={x.name} value={x.name}>
       {x.name}
     </MenuItem>
-  );
-});
+  )
+})
 
 class ConnectedHeader extends Component {
   state = {
     searchTerm: "",
     anchorEl: null,
-    categoryFilterValue: categories[0].name
-  };
+    categoryFilterValue: categories[0].name,
+  }
 
   render() {
-    let { anchorEl } = this.state;
+    let { anchorEl } = this.state
 
     return (
-      <AppBar
-        position="static"
-        style={{ backgroundColor: "#FAFAFB" }}
-      >
-	  <Toolbar style={{ backgroundColor: "#552d5f"}}><div></div></Toolbar>
+      <AppBar position="static" style={{ backgroundColor: "#FAFAFB" }}>
+        <Toolbar style={{ backgroundColor: "#552d5f" }}>
+          <div></div>
+        </Toolbar>
         <Toolbar>
           <div className="left-part">
             <IconButton
               onClick={() => {
-                this.props.dispatch(toggleMenu());
+                this.props.dispatch(toggleMenu())
               }}
             >
               <MenuIcon size="medium" />
@@ -67,39 +66,34 @@ class ConnectedHeader extends Component {
               label="جستجو در کالا ها"
               value={this.state.searchTerm}
               onChange={e => {
-                this.setState({ searchTerm: e.target.value });
+                this.setState({ searchTerm: e.target.value })
               }}
-              style={{ marginLeft: 30, width: 250, marginBottom: 15 ,}}
+              style={{ marginLeft: 30, width: 250, marginBottom: 15 }}
             />
 
             <Select
-              style={{ maxWidth: 200, marginLeft: 20 ,fontweight:"normal", color:"gray" }}
+              style={{ maxWidth: 200, marginLeft: 20, fontweight: "normal", color: "gray" }}
               value={this.state.categoryFilterValue}
               MenuProps={{
                 style: {
                   maxHeight: 500,
-
-                }
+                },
               }}
               onChange={e => {
-                this.setState({ categoryFilterValue: e.target.value });
+                this.setState({ categoryFilterValue: e.target.value })
               }}
             >
               {categoryOptions}
             </Select>
 
             <Button
-              style={{ marginLeft: 20 ,
-                backgroundcolor: "#552d5f"}}
+              style={{ marginLeft: 20, backgroundcolor: "#552d5f" }}
               variant="outlined"
               color="primary"
               onClick={() => {
                 this.props.history.push(
-                    "/?category=" +
-                    this.state.categoryFilterValue +
-                    "&term=" +
-                    this.state.searchTerm
-                );
+                  "/?category=" + this.state.categoryFilterValue + "&term=" + this.state.searchTerm
+                )
               }}
             >
               {" "}
@@ -108,20 +102,32 @@ class ConnectedHeader extends Component {
           </div>
           <div className="right-part">
             {!this.props.loggedInUser ? (
-              <Button
-                variant="outlined"
-                style={{ marginRight: 20 }}
-                color="primary"
-                onClick={() => {
-                  this.props.history.push("/login");
-                }}
-              >
-                وارد شو
-              </Button>
+              <>
+                <Button
+                  variant="outlined"
+                  style={{ marginRight: 20 }}
+                  color="primary"
+                  onClick={() => {
+                    this.props.history.push("/login")
+                  }}
+                >
+                  وارد شو
+                </Button>
+                <Button
+                  variant="outlined"
+                  style={{ marginRight: 20 }}
+                  color="primary"
+                  onClick={() => {
+                    this.props.history.push("/signup")
+                  }}
+                >
+                  ثبت نام
+                </Button>
+              </>
             ) : (
               <Avatar
                 onClick={event => {
-                  this.setState({ anchorEl: event.currentTarget });
+                  this.setState({ anchorEl: event.currentTarget })
                 }}
                 style={{ backgroundColor: "#3f51b5", marginRight: 10 }}
               >
@@ -131,7 +137,7 @@ class ConnectedHeader extends Component {
             <IconButton
               aria-label="Cart"
               onClick={() => {
-                this.props.dispatch(showCartDlg(true));
+                this.props.dispatch(showCartDlg(true))
               }}
             >
               <Badge badgeContent={this.props.nrOfItemsInCard} color="primary">
@@ -142,13 +148,13 @@ class ConnectedHeader extends Component {
               anchorEl={anchorEl}
               open={Boolean(anchorEl)}
               onClose={() => {
-                this.setState({ anchorEl: null });
+                this.setState({ anchorEl: null })
               }}
             >
               <MenuItem
                 onClick={() => {
-                  this.setState({ anchorEl: null });
-                  this.props.history.push("/order");
+                  this.setState({ anchorEl: null })
+                  this.props.history.push("/order")
                 }}
               >
                 سبد خرید
@@ -156,10 +162,10 @@ class ConnectedHeader extends Component {
               <MenuItem
                 onClick={() => {
                   Auth.signout(() => {
-                    this.props.dispatch(logout());
-                    this.props.history.push("/");
-                  });
-                  this.setState({ anchorEl: null });
+                    this.props.dispatch(logout())
+                    this.props.history.push("/")
+                  })
+                  this.setState({ anchorEl: null })
                 }}
               >
                 خارج شو
@@ -168,9 +174,9 @@ class ConnectedHeader extends Component {
           </div>
         </Toolbar>
       </AppBar>
-    );
+    )
   }
 }
 
-const Header = withRouter(connect(mapStateToProps)(ConnectedHeader));
-export default Header;
+const Header = withRouter(connect(mapStateToProps)(ConnectedHeader))
+export default Header
