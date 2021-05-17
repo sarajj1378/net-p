@@ -59,7 +59,7 @@ class ConnectedSignup extends Component {
             }}
           >
             {" "}
-            ورود{" "}
+            ثبتنام{" "}
           </div>{" "}
           <TextField
             value={this.state.userName}
@@ -117,7 +117,7 @@ class ConnectedSignup extends Component {
                 })
             }}
           >
-            ورود{" "}
+            ثبتنام{" "}
           </Button>{" "}
           {this.props.wrongCred && <div style={{ color: "red" }}> {this.props.wrongCredMsg} </div>}{" "}
           <NavLink to="/login">وارد شوید</NavLink>

@@ -130,12 +130,10 @@ class ConnectedDetails extends Component {
               color="primary"
               variant="outlined"
               onClick={() => {
-                this.props.dispatch(
-                  addItemInCart({
-                    ...this.state.item,
-                    quantity: this.state.quantity,
-                  })
-                );
+                this.props.addItemInCart({
+                  ...this.state.item,
+                  quantity: this.state.quantity,
+                });
               }}
             >
               اضافه به سبد خرید{" "}
@@ -158,14 +156,14 @@ class ConnectedDetails extends Component {
           style={{
             maxHeight: 200,
             fontSize: 20,
-			direction: "rtl",
+            direction: "rtl",
           }}
         >
           {this.state.item.description
             ? this.state.item.description
             : "Not available"}
         </div>
-<hr/>
+        <hr />
         <div
           style={{
             marginTop: 20,
@@ -185,7 +183,10 @@ class ConnectedDetails extends Component {
               ?.filter((item) => item.id === this.state.item.id)
               .map((item) =>
                 item.comment?.map((itemComment, index) => (
-                  <div className="comment-div" key={index}> USER: {itemComment}</div>
+                  <div className="comment-div" key={index}>
+                    {" "}
+                    USER: {itemComment}
+                  </div>
                 ))
               )}
             <div className="comment-container-inputs">
@@ -207,8 +208,8 @@ class ConnectedDetails extends Component {
         </form>
 
         {/* Relateditems */}
-          <hr/>
-          <div
+        <hr />
+        <div
           style={{
             marginTop: 20,
             marginBottom: 20,
@@ -232,6 +233,7 @@ class ConnectedDetails extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     addComment: (id, comment) => dispatch(addComment(id, comment)),
+    addItemInCart: (item) => dispatch(addItemInCart(item)),
   };
 };
 const mapStateToProps = (state) => {
