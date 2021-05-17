@@ -13,7 +13,9 @@ class Footer extends Component {
           height: 100,
           backgroundColor: "#f1f1f1",
           justifyContent: "space-around",
-          display: "flex"
+          display: "flex" ,
+          direction: "rtl"
+
         }}
       >
         <div>
